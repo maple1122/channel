@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<suite name="channelTest" parallel="false">
+
+    <test name="电视节目管理测试">
+        <classes>
+            <class name="TvProgramTest"></class>
+        </classes>
+    </test>
+    <test name="广播节目管理测试">
+        <classes>
+            <class name="RadioProgramTest"></class>
+        </classes>
+    </test>
+    <test name="精选节目管理测试">
+        <classes>
+            <class name="ChoiceProgramTest"></class>
+        </classes>
+    </test>
+    <test name="节目单管理测试">
+        <classes>
+            <class name="ProguidTest"></class>
+        </classes>
+    </test>
+    <listeners>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+        <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+    </listeners>
+</suite>
