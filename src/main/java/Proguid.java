@@ -107,7 +107,6 @@ public class Proguid extends LoginPortal {
                                 dates = weeks.get(j).findElements(By.xpath("td"));
                                 for (int d = 0; d < dates.size() - 1; d++) {
                                     if (dates.get(d).getAttribute("class").equals("layui-this")) {
-                                        System.out.println("111111111111");
                                         date = dates.get(d + 1).getText();
                                         dates.get(d + 1).click();
                                         System.out.println("~~~multiplexing()，复制节目单，执行成功。复用到" + date + "日~~~");
