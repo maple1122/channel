@@ -28,7 +28,7 @@ public class Proguid extends LoginPortal {
                     channels.get(i).click();
                     Thread.sleep(500);
 
-                    if (CommonMethod.isJudgingElement(driver,By.xpath("//div[@class='layui-table-body layui-table-main']/table/tbody"))) {
+                    if (CommonMethod.isJudgingElement(driver, By.xpath("//div[@class='layui-table-body layui-table-main']/table/tbody"))) {
                         num = driver.findElements(By.xpath("//div[@class='layui-table-body layui-table-main']/table/tbody/tr")).size();
                     } else num = 0;
                     actions.contextClick(driver.findElement(By.xpath("//div[@class='layui-table-body layui-table-main']"))).perform();
@@ -69,7 +69,7 @@ public class Proguid extends LoginPortal {
                 if (channels.get(i).getText().contains("auto")) {
                     channels.get(i).click();
                     Thread.sleep(500);
-                    if (CommonMethod.isJudgingElement(driver,By.xpath("//div[@class='layui-table-body layui-table-main']/table/tbody"))) {
+                    if (CommonMethod.isJudgingElement(driver, By.xpath("//div[@class='layui-table-body layui-table-main']/table/tbody"))) {
                         driver.findElement(By.xpath("//div[@class='layui-table-body layui-table-main']/table/tbody/tr[1]/td/div/div/i")).click();
                         Thread.sleep(500);
                         driver.findElement(By.cssSelector("button.fr.shanc-btn.layui-btn.layui-btn-primary")).click();
@@ -87,34 +87,46 @@ public class Proguid extends LoginPortal {
     public static void multiplexing() throws InterruptedException {
         List<WebElement> channels = driver.findElements(By.xpath("//ul[@class='ll-card-body channelTV']/li"));//获取频道list
         List<WebElement> weeks, dates;//日历控件，获取周list、每周日期list
+        String date;
         Boolean status = false;
         if (channels.size() > 0)
             for (int i = 0; i < channels.size(); i++) {
                 if (channels.get(i).getText().contains("auto")) {
                     channels.get(i).click();
                     Thread.sleep(500);
-                    if (CommonMethod.isJudgingElement(driver,By.xpath("//div[@class='layui-table-body layui-table-main']/table/tbody/tr"))) {
+                    if (CommonMethod.isJudgingElement(driver, By.xpath("//div[@class='layui-table-body layui-table-main']/table/tbody/tr"))) {
                         driver.findElement(By.xpath("//div[@class='layui-table-header']/table/thead/tr/th/div/div/i")).click();
                         driver.findElement(By.cssSelector("button.fr.multiplexing-btn.layui-btn.layui-btn-primary")).click();
-                        Thread.sleep(500);
+                        Thread.sleep(1000);
                         driver.findElement(By.name("toDate")).click();
-                        Thread.sleep(500);
+                        Thread.sleep(1000);
                         //复用到第二天
                         weeks = driver.findElements(By.xpath("//div[@class='layui-laydate-content']/table/tbody/tr"));
                         for (int j = 0; j < weeks.size(); j++) {
                             if (!status) {
                                 dates = weeks.get(j).findElements(By.xpath("td"));
-                                for (int d = 0; d < dates.size(); d++) {
+                                for (int d = 0; d < dates.size() - 1; d++) {
                                     if (dates.get(d).getAttribute("class").equals("layui-this")) {
-                                        System.out.println("~~~multiplexing()，复制节目单，执行成功。复用到" + dates.get(d + 1).getText() + "日~~~");
+                                        System.out.println("111111111111");
+                                        date = dates.get(d + 1).getText();
                                         dates.get(d + 1).click();
+                                        System.out.println("~~~multiplexing()，复制节目单，执行成功。复用到" + date + "日~~~");
                                         status = true;
                                         break;
                                     }
                                 }
+//                                if (!status) {
+//                                    if (dates.get(dates.size() - 1).getAttribute("class").equals("layui-this")) {
+//                                        System.out.println("2222222222");
+//                                        date = weeks.get(j + 1).findElements(By.xpath("td")).get(0).getText();
+//                                        weeks.get(j + 1).findElements(By.xpath("td")).get(0).click();
+//                                        System.out.println("~~~multiplexing()，复制节目单，执行成功。复用到" + date + "日~~~");
+//                                        break;
+//                                    }
+//                                }
                             } else break;
                         }
-                        Thread.sleep(500);
+                        Thread.sleep(1000);
                         driver.findElement(By.className("layui-layer-btn0")).click();
                         Thread.sleep(2000);
                     }
@@ -136,10 +148,10 @@ public class Proguid extends LoginPortal {
                 if (channels.get(i).getText().contains("auto")) {//判断是否有auto名称的自动化频道
                     channels.get(i).click();//激活自动化频道
                     Thread.sleep(500);
-                    if (CommonMethod.isJudgingElement(driver,By.xpath("//div[@class='layui-table-body layui-table-main']/table/tbody/tr"))) {//判断是否有节目单数据
+                    if (CommonMethod.isJudgingElement(driver, By.xpath("//div[@class='layui-table-body layui-table-main']/table/tbody/tr"))) {//判断是否有节目单数据
                         List<WebElement> trs = driver.findElements(By.xpath("//div[@class='layui-table-body layui-table-main']/table/tbody/tr"));//获取节目单数据
                         for (int r = 1; r < trs.size() + 1; r++) {
-                            if (CommonMethod.isJudgingElement(driver,By.xpath("//div[@class='layui-table-body layui-table-main']/table/tbody/tr[" + r + "]/td[@data-field='coverImg']/div/span")))//判断节目单是否需要上传视频
+                            if (CommonMethod.isJudgingElement(driver, By.xpath("//div[@class='layui-table-body layui-table-main']/table/tbody/tr[" + r + "]/td[@data-field='coverImg']/div/span")))//判断节目单是否需要上传视频
                             {
                                 needUP = true;//需要上传
                                 trNo = r;//需要对哪一条进行上传
@@ -154,7 +166,7 @@ public class Proguid extends LoginPortal {
                     //上传视频
                     Thread.sleep(1000);
                     for (int j = 1; j < 20; j++) {//上传视频iframe图层参数
-                        if (CommonMethod.isJudgingElement(driver,By.id("layui-layer-iframe" + j))) {//判断有效的上传视频图层的iframe名称，j是动态的
+                        if (CommonMethod.isJudgingElement(driver, By.id("layui-layer-iframe" + j))) {//判断有效的上传视频图层的iframe名称，j是动态的
                             driver.switchTo().frame("layui-layer-iframe" + j);//切换到上传视频图层iframe页面
                             //上传封面图
                             driver.findElement(By.cssSelector("i.layui-icon.layui-icon-add-1")).click();//点击添加封面
@@ -192,7 +204,7 @@ public class Proguid extends LoginPortal {
         try {
             driver = login();
             for (int i = 0; i < 3; i++) {
-                if (!CommonMethod.isJudgingElement(driver,By.tagName("header"))) {
+                if (!CommonMethod.isJudgingElement(driver, By.tagName("header"))) {
                     driver.get("http://app.test.pdmiryun.com/rft/channel/proguid");
                     Thread.sleep(2000);
                 } else break;
