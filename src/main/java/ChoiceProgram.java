@@ -59,9 +59,15 @@ public class ChoiceProgram extends LoginPortal {
 
     //设置分类
     public static void setClass() throws InterruptedException {
+        if (!CommonMethod.isJudgingElement(driver,By.xpath("//ul[@class='image-list clear-fix']/li/div[@class='image-item']"))){
+            TvProgram.setChoice();
+            driver.findElement(By.id("selectpro")).click();
+            Thread.sleep(2000);
+        }
         Actions actions = new Actions(driver);
         String pname;//节目名称
         int type = 0;
+
         List<WebElement> classesL, classesR;//设置分类图层的左侧的分类、右侧的分类
         List<WebElement> elements = driver.findElements(By.xpath("//ul[@class='image-list clear-fix']/li"));//获取节目列表
         if (elements.size() > 0) {//有节目数据
@@ -105,12 +111,19 @@ public class ChoiceProgram extends LoginPortal {
 
     //取消精选
     public static void cancelChoice() throws InterruptedException {
+        if (!CommonMethod.isJudgingElement(driver,By.xpath("//ul[@class='image-list clear-fix']/li/div[@class='image-item']"))){
+            TvProgram.setChoice();
+            driver.findElement(By.id("selectpro")).click();
+            Thread.sleep(2000);
+        }
+
         String pname;//节目名称
-        Boolean type=false,hasAuto = false;//是否已执行过取消精选
+        Boolean type=false;//是否已执行过取消精选
+
         List<WebElement> elements = driver.findElements(By.xpath("//ul[@class='image-list clear-fix']/li"));//获取节目list
         if (elements.size() > 0) {//节目非空
             for (int i = 0; i < elements.size(); i++) {
-                if (!elements.get(i).findElement(By.xpath("div/div[@class='img-info']/p")).getText().contains("auto")) {//节目名称中包含auto的数据
+                if (elements.get(i).findElement(By.xpath("div/div[@class='img-info']/p")).getText().contains("auto")) {//节目名称中包含auto的数据
                     pname = elements.get(i).findElement(By.xpath("div/div[@class='img-info']/h3")).getText();//获取该节目名称
                     elements.get(i).findElement(By.xpath("//div[@class='img-content']/div[@class='img-opers']/a[@class='delSelect']")).click();//点击取消精选
                     Thread.sleep(500);
