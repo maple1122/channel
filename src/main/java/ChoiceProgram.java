@@ -60,6 +60,8 @@ public class ChoiceProgram extends LoginPortal {
     //设置分类
     public static void setClass() throws InterruptedException {
         if (!CommonMethod.isJudgingElement(driver,By.xpath("//ul[@class='image-list clear-fix']/li/div[@class='image-item']"))){
+            driver.findElement(By.id("tvpro")).click();
+            Thread.sleep(2000);
             TvProgram.setChoice();
             driver.findElement(By.id("selectpro")).click();
             Thread.sleep(2000);
@@ -73,7 +75,7 @@ public class ChoiceProgram extends LoginPortal {
         if (elements.size() > 0) {//有节目数据
             pname = elements.get(0).findElement(By.xpath("div/div[@class='img-info']/h3")).getText();//获取节目名称
             elements.get(0).findElement(By.xpath("//div[@class='img-content']/div[@class='img-opers']/a[@class='setCategory']")).click();//对第一各节目进行设置分类
-            Thread.sleep(500);
+            Thread.sleep(1000);
             classesL = driver.findElements(By.xpath("//ul[@class='category-list clear-fix']/li"));//设置分类图层，左侧分类list
             classesR = driver.findElements(By.xpath("//div[@class='category-right']/ul/li"));//设置分类图层，右侧分类list
             if (classesR.size() > 0) {//右侧已添加的分类有数据
@@ -112,6 +114,8 @@ public class ChoiceProgram extends LoginPortal {
     //取消精选
     public static void cancelChoice() throws InterruptedException {
         if (!CommonMethod.isJudgingElement(driver,By.xpath("//ul[@class='image-list clear-fix']/li/div[@class='image-item']"))){
+            driver.findElement(By.id("tvpro")).click();
+            Thread.sleep(1000);
             TvProgram.setChoice();
             driver.findElement(By.id("selectpro")).click();
             Thread.sleep(2000);
