@@ -406,16 +406,16 @@ public class TvProgram extends LoginPortal {
             driver = login();
             for (int i = 0; i < 3; i++) {
                 if (!CommonMethod.isJudgingElement(driver,By.tagName("header"))) {
-                    driver.get("http://app.test.pdmiryun.com/rft/channel/tvprogram");
+                    driver.get(domain+"/rft/channel/tvprogram");
                     Thread.sleep(2000);
                 } else break;
             }
 
-            if (!driver.findElement(By.xpath("//div[@class='nav-right']/ul/li/a")).getText().contains("爱富县")) {
+            if (!driver.findElement(By.xpath("//div[@class='nav-right']/ul/li/a")).getText().contains(siteName)) {
                 Actions action = new Actions(driver);
                 action.moveToElement(driver.findElement(By.className("nav-right"))).perform();
                 Thread.sleep(500);
-                driver.findElement(By.linkText("爱富县")).click();
+                driver.findElement(By.linkText(siteName)).click();
                 Thread.sleep(3000);
             }
         } catch (InterruptedException e) {

@@ -36,10 +36,10 @@ public class TvProgramTest {
         TvProgram.editProgram();
     }
 
-    @Test(priority = 12)//删除节目
-    public void testDelProgram() throws InterruptedException {
-        TvProgram.delProgram();
-    }
+//    @Test(priority = 12)//删除节目
+//    public void testDelProgram() throws InterruptedException {
+//        TvProgram.delProgram();
+//    }
 
     @Test(priority = 6)//节目展示
     public void testShowProgram() throws InterruptedException {

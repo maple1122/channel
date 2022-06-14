@@ -17,10 +17,10 @@ public class ProguidTest {
         Proguid.addProgram();
     }
 
-    @Test(priority = 4)//删除节目单
-    public void testDelProgram() throws InterruptedException {
-        Proguid.delProgram();
-    }
+//    @Test(priority = 4)//删除节目单
+//    public void testDelProgram() throws InterruptedException {
+//        Proguid.delProgram();
+//    }
 
     @Test(priority = 3)//复用节目单
     public void testMultiplexing() throws InterruptedException {
